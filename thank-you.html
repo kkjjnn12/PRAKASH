@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fireworks Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(to bottom, #1a1a40, #4a4aff);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        h1 {
+            font-size: 50px;
+            color: #FFD700;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .button-container {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #FFD700;
+            color: #1a1a40;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thank You for Your Purchase!</h1>
+    <div class="button-container">
+        <button onclick="goToHomePage()">Back to Home</button>
+    </div>
+    <canvas id="fireworksCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let fireworks = [];
+
+        class Firework {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.explodeParticles = [];
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                for (let i = 0; i < 30; i++) {
+                    this.explodeParticles.push(new Particle(this.x, this.y, this.color));
+                }
+            }
+            update() {
+                this.explodeParticles.forEach((particle, index) => {
+                    particle.update();
+                    if (particle.alpha <= 0) {
+                        this.explodeParticles.splice(index, 1);
+                    }
+                });
+            }
+            draw() {
+                this.explodeParticles.forEach((particle) => particle.draw());
+            }
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 2;
+                this.color = color;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * 6 - 3;
+                this.gravity = 0.05;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY + this.gravity;
+                this.alpha -= this.decay;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.explodeParticles.length === 0) {
+                    fireworks.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        function launchFireworks() {
+            setInterval(() => {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.5;
+                fireworks.push(new Firework(x, y));
+            }, 500);
+        }
+
+        function goToHomePage() {
+            // Redirect to the homepage
+            window.location.href = "PK SHOP.html"; // Replace "index.html" with the path to your homepage.
+        }
+
+        // Start the fireworks display on page load
+        window.onload = () => {
+            animate();
+            launchFireworks();
+        };
+    </script>
+</body>
+</html>

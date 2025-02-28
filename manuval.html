@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+   <img id="myimage" src="vijay.jpeg">
+   <p>thalapathi always is best</p>
+   <input type="button" value="clickme" onclick='moveright();'>
+</form>
+<script>
+    var imgjam = null;
+    function init()
+    {
+    imgjam =document.getElementById('myimage');
+    imgjam.style.position='relative';
+    imgjam.style.left='0px';}
+    function moveright()
+    {
+     imgjam.style.left=parseInt(imgjam.style.left)+10+'px';}
+     window.onload=init;
+
+</script>
+</body>
+</html>

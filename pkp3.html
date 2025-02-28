@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-image: linear-gradient(to right, pink ,pink,  white,pink , pink);
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .navbar {
+            background-color: #343a40;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            width: 200px;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .product button {
+            flex: 1;
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-to-cart {
+            background-color: #28a745;
+        }
+        .add-to-cart:hover {
+            background-color: #218838;
+        }
+        .buy-now {
+            background-color: #007bff;
+        }
+        .buy-now:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>Womens Trending Collections</h2>
+        <a href="girlsdress.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> YOUR CART</a>
+    </div>
+
+    <div class="product-container" id="productContainer">
+        <!-- Products will be dynamically loaded -->
+    </div>
+
+    <script>
+        // Array of products
+        const products = [
+        { id: 9, name: "Embroided Anarkali Suit", price: 1200, image: "Pink Heavy Designer Embroidered Work Traditional_Festive Special Anarkali Suit.jpeg" },
+            { id: 10, name: "Anarkali Palazzo Suit", price: 1500, image: "Yellow Heavy Fully Designer Work All Over Traditional_Festive Special Anarkali Palazzo Suit.jpeg" },
+            { id: 11, name: "Wedding Anarkali Suit", price: 2000, image: "Purple Heavy Designer Sequence All Over Work Wedding Special Anarkali Suit.jpeg" },
+            { id: 12, name: "Anarkali Dupatta Suit", price: 2500, image: "Buy Red Anarkali Chiffon And Dupatta Net Print & Embroidery Terra With For Women by Ridhi Mehra Online at Aza Fashions_.jpeg" },
+        ];
+        // Render products
+        const productContainer = document.getElementById("productContainer");
+        products.forEach((product) => {
+            const productElement = document.createElement("div");
+            productElement.classList.add("product");
+            productElement.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <p>${product.name}</p>
+                <p>Price: Rs.${product.price}</p>
+                <div class="button-container">
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                    <button class="buy-now" onclick="buyNow(${product.id})">Buy Now</button>
+                </div>
+            `;
+            productContainer.appendChild(productElement);
+        });
+
+        // Add to Cart
+        function addToCart(productId) {
+            const product = products.find((p) => p.id === productId);
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (!cart.find((item) => item.id === productId)) {
+                cart.push(product);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert("Product added to cart!");
+            }
+        }
+
+        // Buy Now
+        function buyNow(productId) {
+            const product = products.find((p) => p.id === productId);
+            localStorage.setItem("checkoutProduct", JSON.stringify(product));
+            window.location.href = "checkout.html";
+        }
+    </script>
+</body>
+</html> 
+
+
+
+
+
+
+

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #reviews {
+            background-color: #fff;
+            padding: 40px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .review {
+            border-bottom: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .review:last-child {
+            border-bottom: none;
+        }
+
+        .review p {
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        .review .author {
+            font-weight: bold;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .review .rating {
+            color: gold;
+            font-size: 18px;
+        }
+
+        .review .feedback {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .review img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Style for the review form */
+        #reviewForm {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #reviewForm input, #reviewForm textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #reviewForm button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #reviewForm button:hover {
+            background-color: #45a049;
+        }
+        
+        /* Optional: Add media query for responsiveness */
+        @media screen and (max-width: 600px) {
+            .review {
+                padding: 15px;
+            }
+
+            .reviewer-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="reviews">
+        <h2>Customer Reviews</h2>
+        
+        <!-- Review 1 -->
+        <div class="review">
+            <div class="reviewer-info">
+                <img src="rep.jpeg" alt="Reviewer 1">
+                <p class="author">Samantha L.</p>
+            </div>
+            <p class="rating">⭐️⭐️⭐️⭐️⭐️</p>
+            <p class="feedback">"I absolutely love this store! The products are always high quality, and the customer service is top-notch. I recently bought their anti-aging serum, and I can already see the difference in my skin. Highly recommend!"</p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review">
+            <div class="reviewer-info">
+                <img src="vijay.jpeg" alt="Reviewer 2">
+                <p class="author">John P.</p>
+            </div>
+            <p class="rating">⭐️⭐️⭐️⭐️⭐️</p>
+            <p class="feedback">"I’ve been shopping here for months and I am always impressed with how quickly my orders arrive. Their face masks are my favorite. They leave my skin feeling so refreshed!"</p>
+        </div>
+
+        <!-- New review form -->
+        <div id="reviewForm">
+            <h3>Write Your Review</h3>
+            <form id="reviewInputForm">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" placeholder="Your Name" required><br>
+
+                <label for="rating">Rating (1-5):</label>
+                <input type="number" id="rating" min="1" max="5" required><br>
+
+                <label for="feedback">Your Review:</label>
+                <textarea id="feedback" rows="4" placeholder="Write your feedback here..." required></textarea><br>
+
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to display new review
+        document.getElementById('reviewInputForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const rating = document.getElementById('rating').value;
+            const feedback = document.getElementById('feedback').value;
+
+            // Validate input
+            if (name && rating && feedback) {
+                // Create a new review element
+                const newReview = document.createElement('div');
+                newReview.classList.add('review');
+
+                // Create reviewer info section
+                const reviewerInfo = document.createElement('div');
+                reviewerInfo.classList.add('reviewer-info');
+
+                const img = document.createElement('img');
+                img.src = "https://via.placeholder.com/50"; // Replace with real reviewer image
+                img.alt = name;
+
+                const reviewerName = document.createElement('p');
+                reviewerName.classList.add('author');
+                reviewerName.textContent = name;
+
+                reviewerInfo.appendChild(img);
+                reviewerInfo.appendChild(reviewerName);
+
+                // Add rating
+                const reviewRating = document.createElement('p');
+                reviewRating.classList.add('rating');
+                reviewRating.textContent = '⭐️'.repeat(rating);
+
+                // Add feedback
+                const reviewFeedback = document.createElement('p');
+                reviewFeedback.classList.add('feedback');
+                reviewFeedback.textContent = feedback;
+
+                // Append all to new review
+                newReview.appendChild(reviewerInfo);
+                newReview.appendChild(reviewRating);
+                newReview.appendChild(reviewFeedback);
+
+                // Append the new review to the reviews container
+                document.getElementById('reviews').appendChild(newReview);
+
+                // Clear the form fields
+                document.getElementById('name').value = '';
+                document.getElementById('rating').value = '';
+                document.getElementById('feedback').value = '';
+            }
+        });
+    </script>
+
+</body>
+</html>
