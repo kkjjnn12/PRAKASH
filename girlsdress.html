@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            background: linear-gradient(to right, skyblue, white);
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .navbar {
+            background-color: #343a40;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .cart-container {
+            margin-top: 20px;
+        }
+        .cart-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-item img {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .cart-item p {
+            margin: 0 10px;
+        }
+        .cart-item button {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cart-item button:hover {
+            background-color: #c82333;
+        }
+        button.buy-now {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button.buy-now:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>Your Cart</h2>
+        <a href="C:\Users\JESUS\New folder\PK SHOP\PK SHOP.html">Back to Products</a>
+    </div>
+
+    <div class="cart-container" id="cartContainer">
+        <!-- Cart items will be dynamically loaded -->
+    </div>
+
+    <!-- Place the Buy Now button here -->
+    <div style="margin-top: 20px; text-align: center;">
+        <button class="buy-now" onclick="buyNow()">Buy Now</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartContainer = document.getElementById("cartContainer");
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+            } else {
+                let totalAmount = 0;
+                cart.forEach((item) => {
+                    totalAmount += item.price;
+
+                    const cartItem = document.createElement("div");
+                    cartItem.classList.add("cart-item");
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <p>${item.name}</p>
+                        <p>Price: Rs.${item.price}</p>
+                        <button onclick="removeFromCart(${item.id})">Remove</button>
+                    `;
+                    cartContainer.appendChild(cartItem);
+                });
+
+                const totalDisplay = document.createElement("p");
+                totalDisplay.innerHTML = `<strong>Total Amount: Rs.${totalAmount}</strong>`;
+                cartContainer.appendChild(totalDisplay);
+            }
+        });
+
+        function removeFromCart(productId) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const updatedCart = cart.filter((item) => item.id !== productId);
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
+            location.reload(); // Refresh the page to reflect changes
+        }
+
+        function buyNow() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+            } else {
+                // Pass cart data to the checkout page
+                localStorage.setItem("checkoutCart", JSON.stringify(cart));
+                window.location.href = "ch.html"; // Replace with your checkout page
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+    Name: <input type="text" id="i1"><br><br>
+    Password: <input type="text"id="i2"><br><br>
+    Email: <input type="text" id="i3"><br><br>
+    <button onclick="validate()">Submit</button>
+    
+    <script>
+        function validate()
+        {
+            var n1=document.getElementById("i1").value;
+            var n2=document.getElementById("i2").value;
+            var n3=document.getElementById("i3").value;
+            if((n1=="")&&(n2=="")&&(n3=="")){
+            document.write("please fill all the fields");} 
+            else{document.write("submitted successfully");}
+ }
+
+    </script>
+
+
+ </body>
+ </html>

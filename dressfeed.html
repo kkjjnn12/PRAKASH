@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, white,skyblue);
+        }
+
+        .feedback-container {
+            width: 60%; 
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 2em;
+        }
+
+        .feedback-form {
+            margin-top: 20px;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea,
+        .feedback-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 2em;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ffcc00;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .thank-you-message {
+            text-align: center;
+            font-size: 1.2em;
+            color: #2ecc71;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="feedback-container">
+    <h2>Feedback Form</h2>
+    <div class="thank-you-message" id="thank-you-message">
+        Thank you for your feedback! Your response has been submitted.
+    </div>
+
+    <form class="feedback-form" id="feedback-form">
+        <!-- Fit Rating Section -->
+        <label for="fit-rating">How was the fit of the dress?</label>
+        <div class="rating">
+            <input type="radio" id="fit-5" name="fit-rating" value="5"><label for="fit-5">★</label>
+            <input type="radio" id="fit-4" name="fit-rating" value="4"><label for="fit-4">★</label>
+            <input type="radio" id="fit-3" name="fit-rating" value="3"><label for="fit-3">★</label>
+            <input type="radio" id="fit-2" name="fit-rating" value="2"><label for="fit-2">★</label>
+            <input type="radio" id="fit-1" name="fit-rating" value="1"><label for="fit-1">★</label>
+        </div>
+
+        <!-- Style Rating Section -->
+        <label for="style-rating">How do you rate the style of the dress?</label>
+        <div class="rating">
+            <input type="radio" id="style-5" name="style-rating" value="5"><label for="style-5">★</label>
+            <input type="radio" id="style-4" name="style-rating" value="4"><label for="style-4">★</label>
+            <input type="radio" id="style-3" name="style-rating" value="3"><label for="style-3">★</label>
+            <input type="radio" id="style-2" name="style-rating" value="2"><label for="style-2">★</label>
+            <input type="radio" id="style-1" name="style-rating" value="1"><label for="style-1">★</label>
+        </div>
+
+        <!-- Comfort Rating Section -->
+        <label for="comfort-rating">How comfortable was the dress?</label>
+        <div class="rating">
+            <input type="radio" id="comfort-5" name="comfort-rating" value="5"><label for="comfort-5">★</label>
+            <input type="radio" id="comfort-4" name="comfort-rating" value="4"><label for="comfort-4">★</label>
+            <input type="radio" id="comfort-3" name="comfort-rating" value="3"><label for="comfort-3">★</label>
+            <input type="radio" id="comfort-2" name="comfort-rating" value="2"><label for="comfort-2">★</label>
+            <input type="radio" id="comfort-1" name="comfort-rating" value="1"><label for="comfort-1">★</label>
+        </div>
+
+        <!-- Overall Rating Section -->
+        <label for="overall-rating">Overall satisfaction with the dress:</label>
+        <div class="rating">
+            <input type="radio" id="overall-5" name="overall-rating" value="5"><label for="overall-5">★</label>
+            <input type="radio" id="overall-4" name="overall-rating" value="4"><label for="overall-4">★</label>
+            <input type="radio" id="overall-3" name="overall-rating" value="3"><label for="overall-3">★</label>
+            <input type="radio" id="overall-2" name="overall-rating" value="2"><label for="overall-2">★</label>
+            <input type="radio" id="overall-1" name="overall-rating" value="1"><label for="overall-1">★</label>
+        </div>
+
+        <!-- Additional Comments -->
+        <label for="comments">Any additional comments or suggestions:</label>
+        <textarea id="comments" rows="5" placeholder="Tell us more about your experience with the dress..." required></textarea>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-button">Submit Feedback</button>
+    </form>
+</div>
+
+<script>
+    // Handle form submission
+    document.getElementById('feedback-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent page refresh
+
+        // Get the values from the form fields
+        const fitRating = document.querySelector('input[name="fit-rating"]:checked')?.value;
+        const styleRating = document.querySelector('input[name="style-rating"]:checked')?.value;
+        const comfortRating = document.querySelector('input[name="comfort-rating"]:checked')?.value;
+        const overallRating = document.querySelector('input[name="overall-rating"]:checked')?.value;
+        const comments = document.getElementById('comments').value;
+
+        // Check if all fields are filled
+        if (!fitRating || !styleRating || !comfortRating || !overallRating || !comments) {
+            alert('Please complete all fields before submitting.');
+            return;
+        }
+
+        // Show thank you message
+        document.getElementById('thank-you-message').style.display = 'block';
+
+        // Clear form fields
+        document.getElementById('feedback-form').reset();
+
+        // Simulate submitting feedback (e.g., send to server)
+        console.log(`Dress Feedback Submitted:
+        Fit Rating: ${fitRating} stars
+        Style Rating: ${styleRating} stars
+        Comfort Rating: ${comfortRating} stars
+        Overall Rating: ${overallRating} stars
+        Comments: ${comments}`);
+    });
+</script>
+
+</body>
+</html>

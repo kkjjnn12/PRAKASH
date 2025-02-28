@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Name:<input type="text" id="i1"><br><br>
+    Mobile:<input type="text" id="i2"><br><br>
+    Email:<input type="text" id="i3"><br><br>
+    Password:<input type="text" id="i4"><br><br>
+    <button onclick="validate()">submit</button>
+     
+    <script>
+     var n1=document.getElementById("i1").value;
+     var n2=document.getElementById("i2").value;
+     var n3=document.getElementById("i3").value;
+     var n4=document.getElementById("i4").value;
+     alpha=/^[A-Za-z]+$/ 
+     number=/^([0-9]{5,})+$/
+     email=/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/
+     pass=/^(?=.[A-Z])(?=.[a-z])(?=.[0-9])(?=.[!@#$%^&*]).+$/
+     
+     if(n1==""){alert("enter the name");}
+     else if(!alpha.test(n1)){alert("use only alphabets");}
+     if(n2==""){alert("enter the mobile");}
+     else if(!number.test(n2)){alert("enter 10 digit number");}
+     if(n3==""){alert("enter the email");}
+     else if(!email.test(n3)){alert("use only correct email");}
+     if(n4==""){alert("enter the password");}
+     if(!pass.test(n4)){alert("create strong password");}
+     else{alert("success");}
+
+
+
+    </script>
+</body>
+</html>

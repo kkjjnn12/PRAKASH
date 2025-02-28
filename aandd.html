@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div1{border:2px solid goldenrod;width: 300px;height: 300px;}
+        .div2{border:2px solid yellow;width: 300px;height: 300px;}
+        .div3{border:2px solid pink;width: 300px;height: 300px;}
+        .container{display: flex; justify-content: space-around;  }
+        img{width: 150px;}
+        h1{text-align: center;}
+        li{list-style: none;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="div1">
+        <h1>First Person</h1><hr>
+        <img src="vijay.jpeg">
+        <input type="text" id="i1">
+        <button onclick="sendsms()">
+        send
+        </button>
+        </div>
+        <div>
+        <div class="div3" id="mydiv">
+        <h1>Messages</h1><hr>
+        </div><br>
+        <div class="div2">
+        <h1>Second person</h1><hr>
+        <img src="vijay.jpeg">
+        <input type="text" id="i2">
+        <button onclick="sendsms()">
+        send
+        </button>
+        </div>
+        </div>
+    </div>
+    <script>
+        function sendsms(){
+        var value1=document.getElementById("i1").value;
+        var value2=document.getElementById("i2").value;
+        var element=document.createElement("li");
+        if(value1 != ""){
+        text1 = document.createTextNode(value1);
+        element.appendChild(text1);
+        mydiv=document.getElementById("mydiv");
+        mydiv.appendChild(element);
+        element.style.color="red";
+        document.getElementById("i1").value="";}
+       else if (value2 != ""){
+        text2 = document.createTextNode(value2);
+        element.appendChild(text2);
+        mydiv=document.getElementById("mydiv");
+        mydiv.appendChild(element);
+        element.style.color="green";
+        element.style.float="right";
+        document.getElementById("i2").value="";
+        }
+    }
+
+        </script>
+       
+    
+</body>
+</html>
